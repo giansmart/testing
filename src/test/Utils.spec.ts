@@ -1,6 +1,30 @@
-import { getStringInfo, toUpperCase } from "../app/Utils"
+import { StringUtils, getStringInfo, toUpperCase } from "../app/Utils"
 
 describe('Utils test suite', () => {
+
+    describe.only('StringUtils tests', () => {
+
+        let sut: StringUtils;
+
+        beforeEach(() => {
+            sut = new StringUtils();
+            console.log('setup');
+
+        });
+
+        // beforeAll and afterAll hooks are commonly used for integration tests
+
+        afterEach(() => {
+            // clearing mocks
+            console.log('teardown');
+        })
+        it('should return correct upperCase', () => {
+            const actual = sut.toUpperCase('abc');
+
+            expect(actual).toBe('ABC');
+        })
+    })
+
     it('should return uppercase of a valid string', ()=> {
         // arrange
         const sut = toUpperCase;
