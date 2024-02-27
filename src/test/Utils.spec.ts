@@ -13,27 +13,53 @@ describe('Utils test suite', () => {
         expect(actual).toBe(expected);
     });
 
-    // to only run this test
-    it.only('should return info for valid string', () => {
-        const actual = getStringInfo('Test-String');
+    describe('toUpperCase examples', () => {
+        it.each([
+            { input: 'abc', expected: 'ABC'},
+            { input: 'my-string', expected: 'MY-STRING'},
+            { input: 'heLLO', expected: 'HELLO'},
 
-        expect(actual.lowerCase).toBe('test-string'); // for primitive types: toBe
-        expect(actual.extraInfo).toEqual({}); // for objects: toEqual
+        ])('$input toUpperCase should be $expected', ({input, expected})=> {
+            const actual = toUpperCase(input);
+            expect(actual).toBe(expected);
+        })
+    })
+
+    describe('getStringInfo for arg Test-String should', () => {
+        test('return right length', ()=> {
+            const actual = getStringInfo('Test-String');
+            expect(actual.characters).toHaveLength(11);
+        });
+
+        test('return right lower case', ()=> {
+            const actual = getStringInfo('Test-String');
+            expect(actual.lowerCase).toBe('test-string'); // for primitive types: toBe
+        });
+
+        test('return right upper case', ()=> {
+            const actual = getStringInfo('Test-String');
+            expect(actual.upperCase).toBe('TEST-STRING'); 
+        });
+
+        test('return right character', ()=> {
+            const actual = getStringInfo('Test-String');
+            expect(actual.characters.length).toBe(11);
         
-        expect(actual.characters.length).toBe(11);
-        expect(actual.characters).toHaveLength(11);
-        expect(actual.characters).toEqual(['T','e','s','t','-','S','t','r','i','n','g']);
-        expect(actual.characters).toContain<string>('T');
-        expect(actual.characters).toEqual(
-            expect.arrayContaining(['T','e','s','t'])
-        );
+            expect(actual.characters).toEqual(['T','e','s','t','-','S','t','r','i','n','g']);
+            expect(actual.characters).toContain<string>('T');
+            expect(actual.characters).toEqual(
+                expect.arrayContaining(['T','e','s','t'])
+            );
+        });
 
-        expect(actual.extraInfo).not.toBe(undefined);
-        expect(actual.extraInfo).not.toBeUndefined();
-        expect(actual.extraInfo).toBeDefined();
-        expect(actual.extraInfo).toBeTruthy();
-
-
+        test('return defined extra info', ()=> {
+            const actual = getStringInfo('Test-String');
+            expect(actual.extraInfo).not.toBe(undefined);
+            expect(actual.extraInfo).not.toBeUndefined();
+            expect(actual.extraInfo).toBeDefined();
+            expect(actual.extraInfo).toBeTruthy();
+    
+        });
     })
 
 })
