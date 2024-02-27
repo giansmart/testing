@@ -9,3 +9,11 @@ npx ts-jest config:init
 
 try the tests
 npm test
+
+Structure of a properly written unit tests:
+AAA Principles:
+    - arrange
+    - act
+    - assert
+Setup
+TearDown
