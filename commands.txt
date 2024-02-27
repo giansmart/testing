@@ -1,0 +1,11 @@
+init node project 
+npm init -y
+
+Adding dependencies for typescript tests
+npm i -D typescript jest ts-jest @types/jest ts-node
+
+Create jest config file
+npx ts-jest config:init
+
+try the tests
+npm test
