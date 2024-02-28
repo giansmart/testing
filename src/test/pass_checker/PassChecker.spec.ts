@@ -1,4 +1,4 @@
-import { PasswordChecker } from "../../app/pass_checker/PassChecker"
+import { PasswordChecker, PasswordErrors } from "../../app/pass_checker/PassChecker"
 
 describe('PasswordChecker test suite', () => {
     let sut: PasswordChecker;
@@ -9,33 +9,43 @@ describe('PasswordChecker test suite', () => {
 
     it('should check if password with less than 8 chars is invalid', () => {
         const actual = sut.checkPassword('1234567');
-        expect(actual).toBe(false);
+        expect(actual.valid).toBe(false);
+        expect(actual.reasons).toContain(PasswordErrors.SHORT);
     });
 
     it('should check if password with more than 8 chars is ok', () => {
-        const actual = sut.checkPassword('1234567890Aa');
-        expect(actual).toBe(true);
+        const actual = sut.checkPassword('1234567890');
+        //expect(actual.valid).toBe(true);
+        expect(actual.reasons).not.toContain(PasswordErrors.SHORT);
     });
 
     it('should check if password with no upper case letter is invalid', () => {
-        const actual = sut.checkPassword('1234abcde');
-        expect(actual).toBe(false);
+        const actual = sut.checkPassword('abc');
+        //expect(actual.valid).toBe(false);
+        expect(actual.reasons).toContain(PasswordErrors.NO_UPPER_CASE);
     });
 
     it('should check if password with upper case letter is valid', () => {
-        const actual = sut.checkPassword('1234ABCabc');
-        expect(actual).toBe(true);
+        const actual = sut.checkPassword('ABC');
+        //expect(actual.valid).toBe(true);
+        expect(actual.reasons).not.toContain(PasswordErrors.NO_UPPER_CASE);
     });
 
-
-
     it('should check if password with no lower case letter is invalid', () => {
-        const actual = sut.checkPassword('1234ABCD');
-        expect(actual).toBe(false);
+        const actual = sut.checkPassword('ABCD');
+        //expect(actual.valid).toBe(false);
+        expect(actual.reasons).toContain(PasswordErrors.NO_LOWER_CASE);
     });
 
     it('should check if password with lower case letter is valid', () => {
-        const actual = sut.checkPassword('1234ABCabc');
-        expect(actual).toBe(true);
+        const actual = sut.checkPassword('ABCabc');
+        //expect(actual.valid).toBe(true);
+        expect(actual.reasons).not.toContain(PasswordErrors.NO_LOWER_CASE);
+    });
+
+    it('should check if complex password is valid', () => {
+        const actual = sut.checkPassword('123ABCabc');
+        expect(actual.valid).toBe(true);
+        expect(actual.reasons).toHaveLength(0)
     });
 })
