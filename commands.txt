@@ -20,3 +20,7 @@ TearDown
 
 xit -> alias of it.skip
 fit -> alias of it.only
+
+install uuid library
+npm i uuid
+npm i -D @types/uuid

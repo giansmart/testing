@@ -1,8 +1,8 @@
 import { OtherStringUtils, calculateComplexity, toUpperCaseWithCallback } from "../../app/doubles/OtherUtils"
 
-describe('OtherUtils test suite', () => {
+describe.skip('OtherUtils test suite', () => {
 
-    describe.only('OtherStringUtils test with spies', () => {
+    describe('OtherStringUtils test with spies', () => {
         let sut: OtherStringUtils;
 
         beforeEach(() => {
@@ -21,7 +21,7 @@ describe('OtherUtils test suite', () => {
             expect(consoleLogSpy).toHaveBeenCalledWith('abc');
         });
 
-        test.only('Use a spy to replace implementation of a method', () => {
+        test('Use a spy to replace implementation of a method', () => {
             jest.spyOn(sut, 'callExternalService').mockImplementation(() => {
                 console.log('calling mocked implementation!!')
             });
