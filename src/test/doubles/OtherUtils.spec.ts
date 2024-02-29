@@ -2,6 +2,29 @@ import { calculateComplexity, toUpperCaseWithCallback } from "../../app/doubles/
 
 describe('OtherUtils test suite', () => {
 
+    describe.only('Tracking callbacks with Jest mocks', () => {
+
+        const callbackMock = jest.fn();
+
+        afterEach(() => {
+            jest.clearAllMocks();
+        })
+
+        it('should test toUpperCaseWithCallback with invalid argument - track calls', () => {
+            const actual = toUpperCaseWithCallback('', callbackMock);
+            expect(actual).toBeUndefined();
+            expect(callbackMock).toHaveBeenCalledWith('Invalid argument!')
+            expect(callbackMock).toHaveBeenCalledTimes(1);
+        });
+
+        it('should test toUpperCaseWithCallback with valid argument - track calls', () => {
+            const actual = toUpperCaseWithCallback('abc', callbackMock);
+            expect(actual).toBe('ABC');
+            expect(callbackMock).toHaveBeenCalledWith('called function with abc')
+            expect(callbackMock).toHaveBeenCalledTimes(1);
+        });
+    });
+
     describe.only('Tracking callbacks', () => {
         let callbackArgs = [];
         let timesCalled = 0;
