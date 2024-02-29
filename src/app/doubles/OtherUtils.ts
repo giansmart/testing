@@ -22,7 +22,7 @@ export function toUpperCaseWithCallback(arg: string, callback: LoggerServiceCall
 }
 
 export class OtherStringUtils {
-    private callExternalService() {
+    public callExternalService() {
         console.log('Calling external service');
     }
 
